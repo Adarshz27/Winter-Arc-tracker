@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#111827">
+  <meta name="description" content="Winter ARC — 122 days of discipline, fitness and personal growth.">
+  <title>WINTER ARC</title>
+  <link rel="icon" href="assets/icon.svg">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="toast" class="toast"></div>
+
+<header class="topbar">
+  <button class="brand" data-screen="home" aria-label="Home">
+    <span class="brand-mark">W</span>
+    <span><b>WINTER</b><strong>ARC</strong></span>
+  </button>
+  <div class="top-actions">
+    <button id="alarmBtn" class="icon-btn" title="Test alarm">◷</button>
+    <button id="settingsBtn" class="icon-btn" title="Settings">⚙</button>
+  </div>
+</header>
+
+<main>
+  <section id="screen-home" class="screen active">
+    <div class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">DISCIPLINE SEASON</span>
+        <h1>DAY <span id="dayNo">1</span><small>/122</small></h1>
+        <p id="dateLabel"></p>
+        <div class="hero-actions">
+          <button class="primary" id="focusBtn">Start today</button>
+          <button class="ghost" data-screen="progress">View progress</button>
+        </div>
+      </div>
+      <div class="mountain" aria-hidden="true">
+        <div class="peak p1"></div><div class="peak p2"></div><div class="peak p3"></div>
+        <div class="snow s1"></div><div class="snow s2"></div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <article class="stat-card"><span>Overall</span><b id="overallPct">0%</b><i class="progress-line"><em id="overallBar"></em></i></article>
+      <article class="stat-card"><span>Current streak</span><b id="streak">0 days</b><small>Keep showing up.</small></article>
+      <article class="stat-card"><span>Days completed</span><b id="daysCompleted">0/122</b><small>Consistency wins.</small></article>
+    </div>
+
+    <div class="section-head">
+      <div><span class="eyebrow">TODAY</span><h2>Daily habits</h2></div>
+      <span id="habitCount" class="pill">0/8</span>
+    </div>
+    <div id="habitList" class="habit-list"></div>
+
+    <div class="quote-card">
+      <span>WINTER ARC</span>
+      <p id="quote"></p>
+    </div>
+  </section>
+
+  <section id="screen-workout" class="screen">
+    <div class="page-head"><span class="eyebrow">MOVE DAILY</span><h2>Workout</h2><p>Home training with dumbbells + bodyweight.</p></div>
+    <div id="workoutBox"></div>
+    <div class="mini-card steps-card">
+      <div><span class="eyebrow">STEP TARGET</span><h3 id="stepTargetLabel">10,000 steps</h3><p id="stepProgressText">0 / 10,000</p></div>
+      <div class="step-ring" id="stepRing"><b id="stepPct">0%</b></div>
+    </div>
+    <div class="input-row">
+      <input id="stepsInput" type="number" min="0" step="100" placeholder="Enter today's steps">
+      <button class="primary" id="saveSteps">Save steps</button>
+    </div>
+  </section>
+
+  <section id="screen-nutrition" class="screen">
+    <div class="page-head"><span class="eyebrow">FUEL BETTER</span><h2>Nutrition</h2><p>Simple targets to support your training and routine.</p></div>
+    <div class="macro-grid">
+      <article><span>Calories</span><b id="calTarget">—</b><small>kcal / day</small></article>
+      <article><span>Protein</span><b id="proteinTarget">—</b><small>g / day</small></article>
+      <article><span>Carbs</span><b id="carbTarget">—</b><small>g / day</small></article>
+      <article><span>Fat</span><b id="fatTarget">—</b><small>g / day</small></article>
+    </div>
+    <div class="form-card">
+      <h3>Today's nutrition log</h3>
+      <label>Calories eaten<input id="calIn" type="number" min="0" placeholder="e.g. 2100"></label>
+      <label>Protein (g)<input id="proteinIn" type="number" min="0" placeholder="e.g. 120"></label>
+      <button class="primary full" id="saveNutrition">Save nutrition</button>
+    </div>
+    <div class="tip"><b>Clean diet</b><p>Use the habit checklist for your final daily decision. Nutrition numbers are a guide, not a medical prescription.</p></div>
+  </section>
+
+  <section id="screen-water" class="screen">
+    <div class="page-head"><span class="eyebrow">HYDRATE</span><h2>Water</h2><p>Stay consistent throughout the day.</p></div>
+    <div class="water-hero">
+      <div class="water-ring" id="waterRing"><b id="waterPct">0%</b><small>today</small></div>
+      <div><span class="eyebrow">TARGET</span><h3 id="waterTarget">4.0 L</h3><p id="waterText">0.0 L logged</p></div>
+    </div>
+    <div class="water-buttons">
+      <button data-water="0.25">+250 ml</button><button data-water="0.5">+500 ml</button><button data-water="1">+1 L</button><button data-water="-0.25">−250 ml</button>
+    </div>
+    <div class="form-card"><label>Set personal water target (litres)<input id="waterTargetInput" type="number" min="0.5" max="10" step="0.1"></label><button class="ghost full" id="saveWaterTarget">Update target</button></div>
+  </section>
+
+  <section id="screen-learn" class="screen">
+    <div class="page-head"><span class="eyebrow">GROW DAILY</span><h2>Read & Learn</h2><p>Capture what you learned so the day leaves something behind.</p></div>
+    <div class="learn-card">
+      <label>What did you learn today?<textarea id="learnText" rows="7" placeholder="Topic, lesson, article, course, skill..."></textarea></label>
+      <label>Key takeaway<textarea id="learnKey" rows="4" placeholder="One thing worth remembering"></textarea></label>
+      <button class="primary full" id="saveLearn">Save today's learning</button>
+    </div>
+    <div id="learnSaved" class="saved-note"></div>
+  </section>
+
+  <section id="screen-progress" class="screen">
+    <div class="page-head"><span class="eyebrow">THE BIG PICTURE</span><h2>Progress</h2><p>122 days. One standard: keep moving forward.</p></div>
+    <div class="progress-hero"><div class="big-number" id="progressBig">0%</div><div><b>Overall completion</b><p id="progressSub">0 of 8 habits completed today.</p></div></div>
+    <div id="habitStats" class="habit-stats"></div>
+    <div class="section-head"><div><span class="eyebrow">HISTORY</span><h2>Challenge calendar</h2></div></div>
+    <div id="calendar" class="calendar"></div>
+  </section>
+
+  <section id="screen-history" class="screen">
+    <div class="page-head"><span class="eyebrow">LOOK BACK</span><h2>History</h2><p>Review your days and identify patterns.</p></div>
+    <div id="historyList" class="history-list"></div>
+  </section>
+
+  <section id="screen-settings" class="screen">
+    <div class="page-head"><span class="eyebrow">YOUR ARC</span><h2>Settings</h2><p>Personalize your challenge.</p></div>
+    <div class="form-card settings-form">
+      <label>Name / nickname<input id="nameIn" type="text" placeholder="Your name"></label>
+      <div class="two-col">
+        <label>Age<input id="ageIn" type="number" min="13" max="100"></label>
+        <label>Sex<select id="sexIn"><option value="male">Male</option><option value="female">Female</option></select></label>
+      </div>
+      <div class="two-col">
+        <label>Height (cm)<input id="heightIn" type="number" min="100" max="230"></label>
+        <label>Weight (kg)<input id="weightIn" type="number" min="30" max="250"></label>
+      </div>
+      <label>Activity level<select id="activityIn"><option value="1.2">Sedentary</option><option value="1.375">Lightly active</option><option value="1.55">Moderately active</option><option value="1.725">Very active</option><option value="1.9">Extra active</option></select></label>
+      <label>Challenge start date<input id="startIn" type="date"></label>
+      <div class="two-col">
+        <label>Step target<select id="stepIn"><option value="5000">5K</option><option value="10000">10K</option></select></label>
+        <label>Sleep target<select id="sleepIn"><option value="7">7–8 hours</option><option value="8">8 hours</option></select></label>
+      </div>
+      <label>Daily water target (L)<input id="waterIn" type="number" min="0.5" max="10" step="0.1"></label>
+      <button class="primary full" id="saveSettings">Save profile</button>
+      <button class="ghost full" id="notifyBtn">Enable 6 AM & 10 PM notifications</button>
+      <button class="danger full" id="resetBtn">Reset challenge data</button>
+    </div>
+    <div class="notice"><b>Alarm note</b><p>Notifications and the in-page scheduler work best when the PWA is installed and permitted to notify. A normal website cannot guarantee an exact audible alarm while the browser/app is fully closed; reliable background alarms require native scheduling or a push backend.</p></div>
+  </section>
+</main>
+
+<nav class="bottom-nav">
+  <button class="active" data-screen="home">⌂<span>Home</span></button>
+  <button data-screen="workout">◆<span>Workout</span></button>
+  <button data-screen="nutrition">◈<span>Fuel</span></button>
+  <button data-screen="water">◉<span>Water</span></button>
+  <button data-screen="learn">✦<span>Learn</span></button>
+  <button data-screen="progress">▦<span>Progress</span></button>
+</nav>
+
+<div id="modal" class="modal">
+  <div class="modal-panel">
+    <button class="modal-close" id="modalClose">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<script src="script.js"></script>
+</body>
+</html>
